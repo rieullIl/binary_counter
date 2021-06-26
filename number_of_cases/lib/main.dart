@@ -32,19 +32,24 @@ class _MyHomePageState extends State<MyHomePage> {
   List<String> pants = ["brown", "yellow", "jean", "bjean", "checkpants"];
   List<String> shoe = ["shoe1", "shoe2", "slide", "sneak", "sand"];
 
-  int length1 = 5;
-  int length2 = 5;
-  int length3 = 5;
+  int length1 = 1;
+  int length2 = 1;
+  int length3 = 1;
+
+  var total = 0;
 
   List<String> combination = [" ", " ", " "];
-  List<List<String>> comb = [];
+  var comb = Set();
   @override
   Widget build(BuildContext context) {
+    total = notZero(length1) * notZero(length2) * notZero(length3);
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text('총 ${total}개 중 ${comb.length}개 찾았습니다.',
+                style: TextStyle(fontSize: 40)),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -159,6 +164,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 combination[1],
                                 combination[2]
                               ]);
+                              print(comb);
                             }),
                         child: Text("저장"))),
                 SizedBox(width: 20),
@@ -182,7 +188,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       SizedBox(
                           height: 80,
                           width: 80,
-                          child: Image.asset("assets/${i}.jpeg"))
+                          child:
+                              i == " " ? null : Image.asset("assets/${i}.jpeg"))
                   ])
               ],
             )
@@ -190,5 +197,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+  int notZero(var one) {
+    if (one < 1)
+      return 1;
+    else
+      return one;
   }
 }
